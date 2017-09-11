@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="com-qrcode-reader" version="0.0.1" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+  <name>QrCodeReader</name>
+  <js-module name="QrCodeReader" src="www/QrCodeReader.js">
+    <clobbers target="qrcodereader" />
+  </js-module>
+  <platform name="ios">
+    <config-file target="config.xml" parent="/*">
+      <feature name="QrCodeReader">
+        <param name="ios-package" value="QrCodeReader" />
+      </feature>
+    </config-file>
+    <source-file src="src/ios/QrCodeReader.swift" />
+  </platform>
+  <platform name="android">
+    <framework src="com.google.android.gms:play-services-vision:9.4.+" />
+    <framework src="com.android.support:support-v4:25.2.0" />
+    <framework src="com.android.support:design:25.2.0" />
+    <config-file parent="/*" target="res/xml/config.xml">
+      <feature name="QrCodeReader">
+        <param name="android-package" value="com.qrcode.reader.plugins.QrCodeReader" />
+      </feature>
+    </config-file>
+    <config-file parent="/manifest" target="AndroidManifest.xml">
+      <uses-permission android:name="android.permission.CAMERA" />
+      <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    </config-file>
+    <config-file parent="/manifest/application" target="AndroidManifest.xml">
+      <activity android:label="@string/activity_name" android:name="com.qrcode.reader.barcode.BarcodeCaptureActivity" android:theme="@style/QrModalNoTitle"></activity>
+    </config-file>
+    <source-file src="src/android/res/values/styles.xml" target-dir="res/values" />
+    <source-file src="src/android/res/layout/barcode_capture.xml" target-dir="res/layout" />
+    <source-file src="src/android/QrCodeReader.java" target-dir="src/com/qrcode/reader/plugins" />
+    <source-file src="src/android/BarcodeTracker.java" target-dir="src/com/qrcode/reader/barcode/" />
+    <source-file src="src/android/BarcodeCaptureActivity.java" target-dir="src/com/qrcode/reader/barcode" />
+    <source-file src="src/android/BarcodeTrackerFactory.java" target-dir="src/com/qrcode/reader/barcode" />
+    <source-file src="src/android/CameraSource.java" target-dir="src/com/qrcode/reader/camera" />
+    <source-file src="src/android/CameraSourcePreview.java" target-dir="src/com/qrcode/reader/camera" />
+    <source-fie src="src/android/lib/build-extras.gradle" target-dir="src/.." />
+  </platform>
+  <!--<platform name="windows">
+    <js-module src="src/windows/QrCodeReaderProxy.js" name="QrCodeReaderProxy">
+      <merges target="" />
+    </js-module>
+    <framework src="src/windows/QrCodeReader.winmd" custom="true" />
+  </platform>-->
+</plugin>
