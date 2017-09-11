@@ -12,18 +12,17 @@ import android.content.Context;
 import android.util.Log;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
-import com.att.qrcode.barcode.BarcodeCaptureActivity;
+import com.qrcode.reader.barcode.BarcodeCaptureActivity;
 import android.content.Intent;
 import android.graphics.Point;
-import com.att.qrcode.camera.CameraSource;
-import com.att.qrcode.camera.CameraSourcePreview;
+import com.qrcode.reader.camera.CameraSource;
+import com.qrcode.reader.camera.CameraSourcePreview;
 
 
 public class QrCodeReader extends CordovaPlugin { // implements BarcodeTracker.BarcodeGraphicTrackerCallback {
 
   //init private class variables
   private static final String ACTION_RENDER_CAMERA = "launchqrreader";
-  private static final String ACTION_INIT_CAMERA_SOURCE = "initcamerasource";
   private static final String TAG = "QrCodeReader";
   private JSONObject responseJSON;
   private Context context;

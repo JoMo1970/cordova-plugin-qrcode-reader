@@ -24,8 +24,8 @@ import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.MultiProcessor;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
-import com.att.qrcode.camera.CameraSource;
-import com.att.qrcode.camera.CameraSourcePreview;
+import com.qrcode.reader.camera.CameraSource;
+import com.qrcode.reader.camera.CameraSourcePreview;
 
 import java.io.IOException;
 

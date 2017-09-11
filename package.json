@@ -1,19 +1,15 @@
 {
   "name": "cordova-plugin-qrcode-reader",
   "version": "1.0.0",
-  "description": "This plugin will render a qr code reader for Android, iOS, and Windows:wq",
+  "description": "This plugin will render a qr code reader for Android, iOS, and Windows",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/JoMo1970/cordova-plugin-qrcode-reader.git"
+    "url": "https://jq215m@codecloud.web.att.com/scm/st_entmobkey/cordova-plugin-otp-qrcode.git"
   },
   "author": "John Moline",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/JoMo1970/cordova-plugin-qrcode-reader/issues"
-  },
-  "homepage": "https://github.com/JoMo1970/cordova-plugin-qrcode-reader#readme"
+  "license": "ISC"
 }
