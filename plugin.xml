@@ -11,6 +11,16 @@
       </feature>
     </config-file>
     <source-file src="src/ios/QrCodeReader.swift" />
+    <source-file src="src/ios/QRCodeReaderApp.swift" />
+    <source-file src="src/ios/QRCodeReaderResult.swift" />
+    <source-file src="src/ios/QRCodeReaderView.swift" />
+    <source-file src="src/ios/QRCodeReaderViewContainer.swift" />
+    <source-file src="src/ios/QRCodeReaderViewController.swift" />
+    <source-file src="src/ios/QRCodeReaderViewControllerBuilder.swift"  />
+    <source-file src="src/ios/QRCodeReaderViewControllerDelegate.swift"  />
+    <source-file src="src/ios/ReaderOverlayView.swift"  />
+    <source-file src="src/ios/SwitchCameraButton.swift"  />
+    <source-file src="src/ios/ToggleTorchButton.swift"  />
   </platform>
   <platform name="android">
     <framework src="com.google.android.gms:play-services-vision:9.4.+" />
