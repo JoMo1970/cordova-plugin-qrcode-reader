@@ -5,6 +5,7 @@ import UIKit
 @objc(QrCodeReader) class QrCodeReader : CDVPlugin, QRCodeReaderViewControllerDelegate {
 
   //private variables
+  var newCommand : CDVInvokedUrlCommand? = CDVInvokedUrlCommand()
   lazy var reader: QRCodeReaderApp = QRCodeReaderApp()
   lazy var readerVC: QRCodeReaderViewController = {
       let builder = QRCodeReaderViewControllerBuilder {
@@ -19,25 +20,14 @@ import UIKit
 
 
 
+
  //this function will validate if a certificate is installed within the app file structure or in the keychain of the device
  @objc(launchqrreader:)
  func launchqrreader(command: CDVInvokedUrlCommand) {
-    //init plugin result
-    var response: Dictionary = ["success" : true ] as [String : Any]
-    var pluginResult = CDVPluginResult(
-        status: CDVCommandStatus_OK,
-        messageAs: response
-    )
-
+    //set the local command variable
+    self.newCommand = command
     //init scan modal
     self.scanInModalAction()
-
-    //send the callback object back
-     print("Sending back cordova response")
-     self.commandDelegate!.send(
-       pluginResult,
-       callbackId: command.callbackId
-     )
  }
 
   func resizeView(rawView: UIView) {
@@ -109,6 +99,20 @@ import UIKit
       readerVC.completionBlock = { (result: QRCodeReaderResult?) in
           if let result = result {
               print("Completion with result: \(result.value) of type \(result.metadataType)")
+
+              //init plugin result
+              var response: Dictionary = ["success" : true, "secret" : result.value ] as [String : Any]
+              var pluginResult = CDVPluginResult(
+                  status: CDVCommandStatus_OK,
+                  messageAs: response
+              )
+
+              //send the callback object back
+              print("Sending back cordova response")
+              self.commandDelegate!.send(
+                pluginResult,
+                callbackId: self.newCommand?.callbackId
+              )
           }
       }
       self.viewController.present(readerVC, animated: true, completion: nil)
@@ -135,14 +139,15 @@ import UIKit
       reader.stopScanning()
 
       self.viewController.dismiss(animated: true) { [weak self] in
-          let alert = UIAlertController(
+        print("The camera view has dismissed")
+          /*let alert = UIAlertController(
               title: "QRCodeReader",
               message: String (format:"%@ (of type %@)", result.value, result.metadataType),
               preferredStyle: .alert
           )
           alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
 
-          self?.viewController.present(alert, animated: true, completion: nil)
+          self?.viewController.present(alert, animated: true, completion: nil)*/
       }
   }
 
