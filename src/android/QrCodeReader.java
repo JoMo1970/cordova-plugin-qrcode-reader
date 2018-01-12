@@ -85,32 +85,40 @@ public class QrCodeReader extends CordovaPlugin { // implements BarcodeTracker.B
 
   @Override
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
-      Log.i(TAG, "Activity Result Returned - " + data.toString());
-      if (requestCode == BARCODE_READER_REQUEST_CODE) {
-          if (resultCode == CommonStatusCodes.SUCCESS) {
-              try {
-                if (data != null) {
-                    Barcode barcode = data.getParcelableExtra(BarcodeCaptureActivity.BarcodeObject);
-                    Point[] p = barcode.cornerPoints;
-                    responseJSON.put("success", true);
-                    responseJSON.put("secret", barcode.displayValue);
-                }
-                else {
-                  responseJSON.put("success", false);
-                }
-                //send back result
-                Log.i(TAG, "Sending back result - " + responseJSON.toString());
-                callback.success(responseJSON);
-              }
-              catch(JSONException je) {
-                Log.e(TAG, "JSON Exception: " + je.toString());
+      try {
+          if(data!=null) {
+              Log.i(TAG, "Activity Result Returned - " + data.toString());
+              if (requestCode == BARCODE_READER_REQUEST_CODE) {
+                  if (resultCode == CommonStatusCodes.SUCCESS) {
+                      try {
+                          if (data != null) {
+                              Barcode barcode = data.getParcelableExtra(BarcodeCaptureActivity.BarcodeObject);
+                              Point[] p = barcode.cornerPoints;
+                              responseJSON.put("success", true);
+                              responseJSON.put("secret", barcode.displayValue);
+                          }
+                          else {
+                              responseJSON.put("success", false);
+                          }
+                          //send back result
+                          Log.i(TAG, "Sending back result - " + responseJSON.toString());
+                          callback.success(responseJSON);
+                      }
+                      catch(JSONException je) {
+                          Log.e(TAG, "JSON Exception: " + je.toString());
+                      }
+                  }
+                  else {
+                      Log.e(TAG, "Invalid Format - " +  CommonStatusCodes.getStatusCodeString(resultCode));
+                  }
+              } else {
+                  super.onActivityResult(requestCode, resultCode, data);
               }
           }
-          else {
-            Log.e(TAG, "Invalid Format - " +  CommonStatusCodes.getStatusCodeString(resultCode));
-          }
-      } else {
-        super.onActivityResult(requestCode, resultCode, data);
+
+      }
+      catch(Exception ex) {
+          Log.e(TAG, "Exception occurred on returning ActivityResult - " + ex.toString());
       }
   }
 
